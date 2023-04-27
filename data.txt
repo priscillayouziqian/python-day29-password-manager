@@ -1,0 +1,4 @@
+abc.com | youziqian@gmail.com | 123
+github.com | youziqian@gmail.com | 465789
+amazon | youziqian@gmail.com | 789
+bestbuy | youziqian@gmail.com | dnakeafjke
