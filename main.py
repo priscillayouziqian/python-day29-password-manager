@@ -65,6 +65,24 @@ def save():
             password_entry.delete(0, END)
 
 
+# ---------------------------- FIND PASSWORD ------------------------------- #
+def find_password():
+    website = website_entry.get()
+    try:
+        with open("data.json") as data_file:
+            data = json.load(data_file)
+            print(data)  # to better understand and write the code: line 75 and 76
+    except FileNotFoundError:
+        messagebox.showinfo(title="Error", message="No Data File Found")
+    else:
+        if website in data:
+            email = data[website]["email"]
+            password = data[website]["password"]
+            messagebox.showinfo(title=website, message=f"Email: {email}\nPassword: {password}")
+        else:  # if the website is not exist in the data.json file
+            # if/else statement can solve the error case well, use it. Otherwise, use exception handle: try / except
+            messagebox.showinfo(title="Error", message=f"No details for {website} exists.")
+
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
 window.title("Password Manager")
@@ -84,8 +102,8 @@ password_label = Label(text="Password")
 password_label.grid(row=3, column=0)
 
 # entries
-website_entry = Entry(width=54)
-website_entry.grid(row=1, column=1, columnspan=2)
+website_entry = Entry(width=35)
+website_entry.grid(row=1, column=1)
 # once app launch, curser is already in first entry
 website_entry.focus()
 
@@ -98,6 +116,8 @@ password_entry = Entry(width=35)
 password_entry.grid(row=3, column=1)
 
 # buttons
+search_button = Button(text="Search", width=14, command=find_password)
+search_button.grid(row=1, column=2)
 generate_password_button = Button(text="Generate Password", command=generate_password)
 generate_password_button.grid(row=3, column=2)
 add_button = Button(text="Add", width=45, command=save)
